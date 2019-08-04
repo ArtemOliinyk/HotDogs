@@ -36,7 +36,7 @@
             hotDogs: [],
             index: 0,
             hotDog: {
-                title: ""
+                title: " "
             },
             formMode: "",
             formDialog: false,

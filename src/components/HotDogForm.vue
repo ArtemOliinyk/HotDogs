@@ -23,6 +23,9 @@
         name: "HotDogForm",
         data: () => ({
             isFormValid: false,
+            newHotDog: {
+                title: " "
+            }
         }),
         inject: ["hotDogAction", "update"],
         props: {
@@ -65,7 +68,7 @@
                 try {
                     await axios.post(url, this.hotDog);
                     this.hotDog.title = "";
-                    this.hotDogAction(null, null, false);
+                    this.hotDogAction(this.newHotDog, null, false);
                     this.update();
                 } catch (e) {
                     alert(e.message);
@@ -76,7 +79,7 @@
                 let url = 'https://hot-dogs-ao.herokuapp.com/api/update';
                 try {
                     await axios.put(url, this.hotDog);
-                    this.hotDogAction(null, null, false);
+                    this.hotDogAction(this.newHotDog, null, false);
                     this.update();
                 } catch (e) {
                     alert(e.message);
@@ -84,7 +87,7 @@
 
             },
             close() {
-                this.hotDogAction(null, null, false);
+                this.hotDogAction(this.newHotDog, null, false);
             }
         }
     }
