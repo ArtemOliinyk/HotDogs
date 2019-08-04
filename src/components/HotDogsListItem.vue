@@ -5,9 +5,9 @@
         v-list-item-action.ma-0
             v-layout.row
                 v-btn.ma-1(icon small color="blue darken-1" dark @click="editHotDog")
-                    v-icon edit
+                    v-icon mdi-pencil
                 v-btn.ma-1(icon small color="red darken-1" dark @click="deleteHotDog")
-                    v-icon close
+                    v-icon mdi-close
 </template>
 
 <script>
@@ -24,21 +24,21 @@
         methods: {
             async editHotDog() {
                 let title = "Updated hot dog";
-                let url = 'http://localhost:3000/api/update';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/update';
                 try {
                     await axios.put(url, {title: title, id: this.id});
                     this.update();
                 } catch (e) {
-                    console.log(1, e);
+                    alert(e.message);
                 }
             },
             async deleteHotDog() {
-                let url = 'http://localhost:3000/api/delete';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/delete';
                 try {
                     await axios.delete(url, {data: {id: this.id}});
                     this.update();
                 } catch (e) {
-                    console.log(1, e);
+                    alert(e.message);
                 }
             }
         }

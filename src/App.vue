@@ -30,23 +30,23 @@
         }),
         methods: {
             async add() {
-                let url = 'http://localhost:3000/api/create';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/create';
                 try {
                     await axios.post(url, {title: `New hot dog ${this.index}`});
                     this.getHotDogs();
                     this.index++;
                 } catch (e) {
-                    console.log(2, e.message);
+                    alert(e.message);
                 }
 
             },
             async getHotDogs() {
-                let url = 'http://localhost:3000/api/getAll';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/getAll';
                 try {
                     let response = await axios.get(url);
                     this.hotDogs = response.data.reverse();
                 } catch (e) {
-                    console.log(1, e.message);
+                    alert(e.message);
                 }
             },
         },
