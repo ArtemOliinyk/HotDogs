@@ -24,7 +24,7 @@
         data: () => ({
             isFormValid: false,
             newHotDog: {
-                title: " "
+                title: ""
             }
         }),
         inject: ["hotDogAction", "update"],
@@ -66,9 +66,10 @@
                 let url = 'https://hot-dogs-ao.herokuapp.com/api/hotdog';
                 this.hotDog.title += ' hot dog';
                 try {
+                    this.$emit('unshift', this.hotDog);
+                    this.hotDogAction(this.newHotDog, null, false);
                     await axios.post(url, this.hotDog);
                     this.hotDog.title = "";
-                    this.hotDogAction(this.newHotDog, null, false);
                     this.update();
                 } catch (e) {
                     alert(e.message);
@@ -78,8 +79,9 @@
             async editTodo() {
                 let url = 'https://hot-dogs-ao.herokuapp.com/api/hotdog';
                 try {
-                    await axios.put(url, this.hotDog);
+                    this.$emit('edit', this.hotDog);
                     this.hotDogAction(this.newHotDog, null, false);
+                    await axios.put(url, this.hotDog);
                     this.update();
                 } catch (e) {
                     alert(e.message);

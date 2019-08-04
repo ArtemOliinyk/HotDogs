@@ -18,7 +18,7 @@
         props: {
             hotDog: Object,
         },
-        inject: ["hotDogAction", "update"],
+        inject: ["hotDogAction", "update", "deleteFromArr"],
         data: () => ({
             formDialog: false,
             formMode: "editing",
@@ -31,6 +31,7 @@
             async deleteHotDog() {
                 let url = 'https://hot-dogs-ao.herokuapp.com/api/hotdog';
                 try {
+                    this.deleteFromArr(this.hotDog);
                     await axios.delete(url, {data: {_id: this.hotDog._id}});
                     this.update();
                 } catch (e) {

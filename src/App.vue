@@ -6,7 +6,7 @@
                 v-btn(@click="add" color="blue")
                     | New hot dog
             HotDogsList(:hotDogs="hotDogs")
-            HotDogForm(:hotDog="hotDog" :formMode="formMode" :formDialog="formDialog")
+            HotDogForm(:hotDog="hotDog" :formMode="formMode" :formDialog="formDialog" @unshift="unshiftToArray", @edit="editInArr")
 
 </template>
 
@@ -29,6 +29,9 @@
                     this.hotDog = {...hotDog};
                     this.formMode = formMode;
                     this.formDialog = formDialog;
+                },
+                deleteFromArr: (hotDog) => {
+                    this.hotDogs = this.hotDogs.filter(item => item._id !== hotDog._id);
                 }
             }
         },
@@ -36,7 +39,7 @@
             hotDogs: [],
             index: 0,
             hotDog: {
-                title: " "
+                title: ""
             },
             formMode: "",
             formDialog: false,
@@ -55,6 +58,15 @@
                     alert(e.message);
                 }
             },
+            unshiftToArray(hotDog) {
+                this.hotDogs.unshift(hotDog);
+            },
+            editInArr(hotDog) {
+                this.hotDogs.find(item => {
+                    if (item._id === hotDog._id)
+                        item.title = hotDog.title;
+                });
+            },
         },
         created() {
             this.getHotDogs();
@@ -62,6 +74,4 @@
     };
 </script>
 <style>
-    #app {
-    }
 </style>
