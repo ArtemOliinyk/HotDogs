@@ -29,7 +29,7 @@
                 this.hotDogAction(this.hotDog, this.formMode, this.formDialog)
             },
             async deleteHotDog() {
-                let url = 'https://hot-dogs-ao.herokuapp.com/api/delete';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/hotdog';
                 try {
                     await axios.delete(url, {data: {_id: this.hotDog._id}});
                     this.update();

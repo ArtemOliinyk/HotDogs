@@ -63,7 +63,7 @@
         },
         methods: {
             async addTodo() {
-                let url = 'https://hot-dogs-ao.herokuapp.com/api/create';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/hotdog';
                 this.hotDog.title += ' hot dog';
                 try {
                     await axios.post(url, this.hotDog);
@@ -76,7 +76,7 @@
 
             },
             async editTodo() {
-                let url = 'https://hot-dogs-ao.herokuapp.com/api/update';
+                let url = 'https://hot-dogs-ao.herokuapp.com/api/hotdog';
                 try {
                     await axios.put(url, this.hotDog);
                     this.hotDogAction(this.newHotDog, null, false);
