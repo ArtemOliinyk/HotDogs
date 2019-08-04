@@ -6,6 +6,7 @@
                 v-btn(@click="add" color="blue")
                     | New hot dog
             HotDogsList(:hotDogs="hotDogs")
+            HotDogForm(:hotDog="hotDog" :formMode="formMode" :formDialog="formDialog")
 
 </template>
 
@@ -13,32 +14,37 @@
 
     import HotDogsList from "./components/HotDogsList";
     import axios from "axios";
+    import HotDogForm from "./components/HotDogForm";
 
     export default {
         name: 'App',
         components: {
+            HotDogForm,
             HotDogsList
         },
         provide() {
             return {
-                update: () => this.getHotDogs()
+                update: () => this.getHotDogs(),
+                hotDogAction: (hotDog, formMode, formDialog) => {
+                    this.hotDog = {...hotDog};
+                    this.formMode = formMode;
+                    this.formDialog = formDialog;
+                }
             }
         },
         data: () => ({
             hotDogs: [],
-            index: 0
+            index: 0,
+            hotDog: {
+                title: ""
+            },
+            formMode: "",
+            formDialog: false,
         }),
         methods: {
             async add() {
-                let url = 'https://hot-dogs-ao.herokuapp.com/api/create';
-                try {
-                    await axios.post(url, {title: `New hot dog ${this.index}`});
-                    this.getHotDogs();
-                    this.index++;
-                } catch (e) {
-                    alert(e.message);
-                }
-
+                this.formDialog = true;
+                this.formMode = 'adding';
             },
             async getHotDogs() {
                 let url = 'https://hot-dogs-ao.herokuapp.com/api/getAll';

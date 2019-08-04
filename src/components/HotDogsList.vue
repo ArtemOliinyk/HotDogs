@@ -1,7 +1,7 @@
 <template lang=pug>
     v-list.pa-0(style="background-color:#fafafa" reverse)
         template(v-for="hotDog in hotDogs")
-            HotDogsListItem(:hotDog="hotDog" :id="hotDog._id")
+            HotDogsListItem(:hotDog="hotDog")
             v-divider
 </template>
 

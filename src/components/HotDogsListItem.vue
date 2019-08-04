@@ -17,25 +17,21 @@
         name: "HotDogsListItem",
         props: {
             hotDog: Object,
-            index: Number,
-            id: String
         },
-        inject: ['update'],
+        inject: ["hotDogAction", "update"],
+        data: () => ({
+            formDialog: false,
+            formMode: "editing",
+        }),
         methods: {
             async editHotDog() {
-                let title = "Updated hot dog";
-                let url = 'https://hot-dogs-ao.herokuapp.com/api/update';
-                try {
-                    await axios.put(url, {title: title, id: this.id});
-                    this.update();
-                } catch (e) {
-                    alert(e.message);
-                }
+                this.formDialog = true;
+                this.hotDogAction(this.hotDog, this.formMode, this.formDialog)
             },
             async deleteHotDog() {
                 let url = 'https://hot-dogs-ao.herokuapp.com/api/delete';
                 try {
-                    await axios.delete(url, {data: {id: this.id}});
+                    await axios.delete(url, {data: {_id: this.hotDog._id}});
                     this.update();
                 } catch (e) {
                     alert(e.message);
